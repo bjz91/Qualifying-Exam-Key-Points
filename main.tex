@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[parfill]{parskip} % new line between paragraphs, no indentation
+\usepackage[colorlinks]{hyperref}
 
 % Header
 \usepackage{fancyhdr}
@@ -53,7 +54,42 @@ The variational approach to interpolation and approximation is based on the assu
 
 However, most of the surfaces or volumes are neither stochastic nor elastic media, but are the result of a host of natural (\textit{e.g.,} fluxes, diffusion) or socioeconomic processes. Therefore, each of the mentioned methods has a limited realm of applicability and, depending on the knowledge and experience of the user, proper choice of the method and its parameters can significantly improve the final results. 
 
+\subsubsection*{References}
+\begin{itemize}
+    \item Spatial interpolation: \url{https://www.geos.ed.ac.uk/~gisteac/gis_book_abridged/files/ch34.pdf}
+\end{itemize}
+
 \section{Aim 3}
+
+\subsection{Key Points}
+\begin{itemize}
+    \item Routine measurements made by local and federal monitoring programs are generally available only every 3 or 6 days, which limits their usefulness for studies of associations between health outcomes and daily variations in pollutant concentrations \citep{sarnat2015fine}.
+    \item Pollutants with greater measurement error are likely to exhibit weaker associations with health outcomes than pollutants with less error, even if they are not inherently less toxic.
+    \item Why only choose these PM2.5 components species? {
+        \begin{itemize}
+            \item We selected species that represented different chemical component classes, which may plausibly confer different toxicities based on different chemical properties \citep{suh2011chemical}. 
+            \item Consideration was also given to species associated with health outcomes in previous studies \citep{chen2009effects, kelly2012size, rohr2012attributing}.
+            \item The concentrations of the species should be relatively high, with a small samples below the detection limit (BDL) (BDL generally $<5\%$).
+        \end{itemize}
+    }
+    \item Covariates in the model {
+        \begin{itemize}
+            \item Indicator variables to control for season (\textit{i.e.,} fall, winter, spring, and summer)
+            \item Day of week, holidays
+            \item Time trends using cubic splines for day of visit with monthly knots
+            \item Temperature: using cubic splines for lag 0 maximum temperature with knots placed at the 25$^{th}$ and 75$^{th}$ percentiles, cubic terms for 1 to 2 day moving-average minimum temperature, and cubic terms for 0 to 2 day moving-average dew point temperature \citep{strickland2010short}.
+        \end{itemize}
+    }
+    \item Sensitivity analysis {
+        \begin{enumerate}
+            \item Misspecification and the potential for residual confounding by temporal factors: estimating associations with pollutant concentrations on the day after the emergency department visit (lag $-1$) given pollutant levels on the days of interest \citep{flanders2011method}. These lag $-1$ associations are assumed to reflect noncausal mechanisms of association because the exposures occurred after the outcome, suggesting the possibility of some model misspecification and/or residual confounding in primary models assessing the effects of these pollutants \citep{flanders2011method}.
+            \item Alternate model specifications: 1) alternate time trend control (cubic spline for day of visit with two knots per month and one knot every 2 months, respectively, instead of one knot per month); 2) alternate temperature control (indicator variables for each degree Celsius instead of a cubic spline for lag 0 maximum temperature).
+            \item Assess the robustness of our results to lag structure: examined 5-day distributed lag models (lags 0--4), with control for minimum and dew point temperature adjusted to include the moving average of lags 1--4 and 0--4, respectively.
+            \item Potential for confounding of selected single-pollutant results: co-pollutants using two-pollutant models
+        \end{enumerate}
+    }
+\end{itemize}
+
 \subsection{Statistical Knowledge}
 \begin{itemize}
     \item Standardization is the necessary step for the hypothesis testing, that is, to transform a specific distribution to its standard distribution (\textit{e.g.,} standard normal distribution $z=\frac{X-\mu}{\sigma}$). By doing this, the probability can be easily calculated. 
@@ -69,6 +105,7 @@ However, most of the surfaces or volumes are neither stochastic nor elastic medi
         \end{align*}
 \end{itemize}
 
-%\bibliographystyle{plain}
-%\bibliography{references}
+\bibliographystyle{plain}
+\bibliography{references}
+
 \end{document}
