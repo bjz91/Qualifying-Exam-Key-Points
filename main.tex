@@ -8,6 +8,7 @@
 \usepackage[parfill]{parskip} % new line between paragraphs, no indentation
 \usepackage[colorlinks,pdfstartview=FitH,citecolor=blue]{hyperref}
 \usepackage{xeCJK} % Enabling Chinese characters
+\usepackage{fancyvrb} % In-line verbatim; for "\Verb" macro
 
 % Header
 \usepackage{fancyhdr}
@@ -20,6 +21,13 @@
 \begin{document}
 
 \section{Aim 2}
+\subsection{Key Points}
+\begin{itemize}
+    \item Why using KED model instead of other interpolation? {
+    
+    There are many other interpolation methods can be tested (such as the variational approach, that it, splines). It is necessary to check the performance of the methods, such as the preservation of geometrical properties, and then determine the final method.
+    }
+\end{itemize}
 
 \section{Aim 3}
 
@@ -56,6 +64,41 @@
             \item Population attributable fraction (PAF) represents the proportional reduction in population disease that would occur if exposure to PM2.5 was reduced to the Environmental Protection Agency's (EPA) recommended levels of 12 $mg/m^3$ \citep{bowe2018particulate}.
             \item \citet{bowe2018particulate} estimated the national burden of CKD attributable to elevated levels of PM2.5 exceeding the EPA standard (where the theoretical minimum risk exposure level [TMREL] was set at the EPA standard of 12 $mg/m^3$) in the contiguous United States was 44,793 incident cases per year (95\% uncertainty interval [95\% UI], 42,716 to 46,869). The national burden of ESRD attributable to PM2.5 levels in excess of EPA standards was 2438 incident cases per year (95\% UI, 1963 to 2902). 
         \end{itemize}
+    }
+    \item \href{https://rdrr.io/cran/powerMediation/man/sizePoisson.html}{Sample size} calculation for simple Poisson regression. Assume the predictor is normally distributed. {
+       
+        Take PM2.5 as an example: the mean concentration is $15\;\mu g/m^3$; the standard deviation is $7\;\mu g/m^3$; the IQR is $9\;\mu g/m^3$; the expected rate ratio is 1.035; Then, according to ``\Verb+sizePossion+'', the minimum sample size is 8741 counts at 5\% significance level and the power of 0.8. If the average daily counts for ARF is 10 $person/day$, there should be 874 days' data ($\sim 2.4\;years$). 
+         \begin{verbatim}
+            library(powerMediation)
+            sizePoisson(beta0 = 0, beta1 = log(1.035)/9, mu.x1 = 15, 
+                sigma2.x1 = 7*7, mu.T = 1, phi = 1, alpha = 0.1, power = 0.8)
+        \end{verbatim}
+    }
+    \fbox{
+        \parbox{0.9\textwidth}{
+            The simple Poisson regression has the following form:
+            \begin{equation*}
+                Pr(Y_i = y_i | \mu_i, t_i) = \exp(-\mu_i t_i) (\mu_i t_i)^{y_i}/ (y_i!)
+            \end{equation*}
+            where
+            \begin{equation*}
+                \mu_i=\exp(\beta_0+\beta_1 x_{1i})
+            \end{equation*}
+            We are interested in testing the null hypothesis $\beta_1=0$ versus the alternative hypothesis $\beta_1=\theta_1$. Assume $x_1$ is normally distributed with mean $\mu_{x_1}$ and variance $\sigma^2_{x_1}$. The sample size calculation formula derived by \citet{signorini1991sample} is
+            \begin{equation*}
+                N=\phi{[z_{1-\alpha/2}\sqrt{V(b_1 | \beta_1=0)} +z_{power}\sqrt{V(b_1 | \beta_1=\theta_1)}]^2}/ {\mu_T \exp(\beta_0) \theta_1^2}
+            \end{equation*}
+            where $\phi$ is the over-dispersion parameter $(var(y_i)/mean(y_i))$, $\alpha$ is the type I error rate, $b_1$ is the estimate of the slope $\beta_1$, $\beta_0$ is the intercept, $\mu_T$ is the mean exposure time, $z_a$ is the $100\times\alpha^{th}$ lower percentile of the standard normal distribution, and $V(b_1|\beta_1=\theta)$ is the variance of the estimate $b_1$ given the true slope $\beta_1=\theta$.
+            
+            The variances are
+            \begin{equation*}
+                V(b_1 | \beta_1 = 0)=1/{\sigma^2_{x_1}}
+            \end{equation*}
+            and
+            \begin{equation*}
+                V(b_1 | \beta_1 = \theta_1)=1/{\sigma^2_{x_1}} \exp[-(\theta_1 \mu_{x_1} + \theta_1^2\sigma^2_{x_1}/2)]
+            \end{equation*}
+        }
     }
 \end{itemize}
 
