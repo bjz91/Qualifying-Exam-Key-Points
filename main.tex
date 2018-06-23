@@ -23,7 +23,12 @@
 \section{Aim 1}
 \subsection{Key Points}
 \begin{itemize}
-    \item What is a convolutional layer? {
+    \item \textbf{Inaccuracy of the model in the regions without regulatory stations}{
+    
+    Cross-validation only validate the model performance in the regions with regulatory stations, so it is unknown that if the prediction quality is good in the regions without monitoring stations. However, for the research of health study, since the regions with regulatory stations are also the most populated areas, so the model can at least guarantee the accuracy for most of the population exposure. In other words, the inaccurate predictions in wild areas have less influence on the health studies. 
+    }
+    \item \textbf{How to validate the precision of gap-filled AOD?} -- By comparing with AERONET data.
+    \item \textbf{What is a convolutional layer?} {
     
     A convolutional layer is computed by taking a convolutional kernel on an input layer over the entire area. The convolutional kernel function has constant parameters and can take many forms, such as mean, median or weighted averages. In a convolution layer, to obtain value of each cell, a kernel function is applied to neighboring cells and produces a scalar summary. Applying different kernel functions yields different convolutional layers. The nature of a moving average is a process of convolution. 
     \begin{equation*}
