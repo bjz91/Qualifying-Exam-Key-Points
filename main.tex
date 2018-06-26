@@ -30,13 +30,29 @@
     \item \textbf{How to validate the precision of gap-filled AOD?} -- By comparing with AERONET data.
     \item \textbf{What is a convolutional layer?} {
     
-    A convolutional layer is computed by taking a convolutional kernel on an input layer over the entire area. The convolutional kernel function has constant parameters and can take many forms, such as mean, median or weighted averages. In a convolution layer, to obtain value of each cell, a kernel function is applied to neighboring cells and produces a scalar summary. Applying different kernel functions yields different convolutional layers. The nature of a moving average is a process of convolution. 
+    A convolutional layer is computed by taking a convolutional kernel on an input layer over the entire area. The convolutional kernel function has constant parameters and can take many forms, such as mean, median or weighted averages. In a convolutional layer, to obtain value of each cell, a kernel function is applied to neighboring cells and produces a scalar summary. Applying different kernel functions yields different convolutional layers. The nature of a moving average is a process of convolution. 
     \begin{equation*}
         (f*g)(t)=\int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau
     \end{equation*}
-    A convolutional layer is some form of aggregation of neighboring information for a variable. Different convolutional layers capture different levels of aggregation. Aggregation of nearby information makes it possible to capture autocorrelation. 
+    A convolutional layer is some form of aggregation of neighboring information for a variable. Different convolutional layers capture different levels of aggregation. Aggregation of nearby information makes it possible to capture autocorrelation (such as edge detection by Laplacian operator). 
+    }
+    \item \textbf{Autocorrelation} {
+    
+    Autocorrelation is calculated by the correlation between a signal and the lag $k$ of the signal. The autocorrelation function can be used for the following two purposes:
+    \begin{enumerate}
+        \item To detect non-randomness in data. Was this sample data set generated from a random process?
+        \item To identify an appropriate time series model if the data are not random. Would a non-linear or time-series model be a more appropriate model for these data than a simple constant plus error model?
+    \end{enumerate}
     }
 \end{itemize}
+
+\subsection*{Related Links}
+\begin{itemize}
+    \item \href{https://itl.nist.gov/div898/handbook/eda/section3/eda35c.htm}{Autocorrelation}
+\end{itemize}
+
+% -------------------------------------------- %
+% -------------------------------------------- %
 
 \section{Aim 2}
 \subsection{Key Points}
@@ -118,7 +134,12 @@
             \label{fig:time}
         \end{figure}
     }
-    
+    \item \textbf{Why the qualify of low-cost sensors varies spatially and seasonally?} {
+        \begin{itemize}
+            \item Low-cost monitors operate based on light scattering, so uncorrected measurements may depend on particle composition
+            \item Particles are detected under ambient humidity, so hygroscopic growth may lead to the change of particle size
+        \end{itemize}
+    }
 \end{itemize}
 
 \paragraph{Related Links}
@@ -127,29 +148,37 @@
     \item \href{https://www.qld.gov.au/environment/pollution/monitoring/air-pollution/samplers}{High and low volume air samplers}
 \end{itemize}
 
+% -------------------------------------------- %
+% -------------------------------------------- %
+
 \section{Aim 3}
 
 \subsection{Key Points}
 \begin{itemize}
+    \item \textbf{How to know if the low-cost sensor measurements contribute to the estimated PM2.5 results ?}{
+        \begin{itemize}
+            \item We will use EPA PM2.5 and EPA/satellite PM2.5 to estimate the health effects, and then compare them with the effects estimated from improved PM2.5 exposure.
+        \end{itemize}
+    }
     \item Routine measurements made by local and federal monitoring programs are generally available only every 3 or 6 days, which limits their usefulness for studies of associations between health outcomes and daily variations in pollutant concentrations \citep{sarnat2015fine}.
-    \item Pollutants with greater measurement error are likely to exhibit weaker associations with health outcomes than pollutants with less error, even if they are not inherently less toxic.
-    \item Why only choose these PM2.5 components species? {
+    \item Pollutants with greater measurement error are likely to exhibit weaker associations with health outcomes than pollutants with less error, even if they are not inherently less toxic (non-differential misclassification).
+    \item \textbf{Why only choose these PM2.5 components species?} {
         \begin{itemize}
             \item We selected species that represented different chemical component classes, which may plausibly confer different toxicities based on different chemical properties \citep{suh2011chemical}. 
             \item Consideration was also given to species associated with health outcomes in previous studies \citep{chen2009effects, kelly2012size, rohr2012attributing}.
             \item The concentrations of the species should be relatively high, with a small samples below the detection limit (BDL) (BDL generally $<5\%$).
         \end{itemize}
     }
-    \item Covariates in the model {
+    \item \textbf{Covariates in the model} {
         \begin{itemize}
-            \item Indicator variables to control for season (\textit{i.e.,} fall, winter, spring, and summer)
+            \item Indicator variables to control for seasons (\textit{i.e.,} fall, winter, spring, and summer)
             \item Day of week, holidays
             \item Time trends using cubic splines for day of visit with monthly knots (the base trend of the ED visits)
             \item Temperature: using cubic splines for lag 0 maximum temperature with knots placed at the 25$^{th}$ and 75$^{th}$ percentiles, cubic terms for 1 to 2 day moving-average minimum temperature, and cubic terms for 0 to 2 day moving-average dew point temperature \citep{strickland2010short}.
             \item \textit{\textcolor{red}{Cancer, cardiovascular disease, chronic lung disease, diabetes, hyperlipidemia (高血脂), hypertension (高血压)}}
         \end{itemize}
     }
-    \item Sensitivity analysis {
+    \item \textbf{Sensitivity analysis} {
         \begin{enumerate}
             \item Misspecification and the potential for residual confounding by temporal factors: estimating associations with pollutant concentrations on the day after the emergency department visit (lag $-1$) given pollutant levels on the days of interest \citep{flanders2011method}. These lag $-1$ associations are assumed to reflect noncausal mechanisms of association because the exposures occurred after the outcome, suggesting the possibility of some model misspecification and/or residual confounding in primary models assessing the effects of these pollutants \citep{flanders2011method}.
             \item Alternate model specifications: 1) alternate time trend control (cubic spline for day of visit with two knots per month and one knot every 2 months, respectively, instead of one knot per month); 2) alternate temperature control (indicator variables for each degree Celsius instead of a cubic spline for lag 0 maximum temperature).
@@ -157,15 +186,15 @@
             \item Potential for confounding of selected single-pollutant results: co-pollutants using two-pollutant models
         \end{enumerate}
     }
-    \item How to estimate the burden of kidney disease caused by PM2.5 exposure? {
+    \item \textbf{How to estimate the burden of kidney disease caused by PM2.5 exposure?} {
         \begin{itemize}
-            \item Population attributable fraction (PAF) represents the proportional reduction in population disease that would occur if exposure to PM2.5 was reduced to the Environmental Protection Agency's (EPA) recommended levels of 12 $mg/m^3$ \citep{bowe2018particulate}.
-            \item \citet{bowe2018particulate} estimated the national burden of CKD attributable to elevated levels of PM2.5 exceeding the EPA standard (where the theoretical minimum risk exposure level [TMREL] was set at the EPA standard of 12 $mg/m^3$) in the contiguous United States was 44,793 incident cases per year (95\% uncertainty interval [95\% UI], 42,716 to 46,869). The national burden of ESRD attributable to PM2.5 levels in excess of EPA standards was 2438 incident cases per year (95\% UI, 1963 to 2902). 
+            \item Population attributable fraction (PAF) represents the proportional reduction in population disease that would occur if exposure to PM2.5 was reduced to the Environmental Protection Agency's (EPA) recommended levels of 12 $\mu g/m^3$ \citep{bowe2018particulate}.
+            \item \citet{bowe2018particulate} estimated the national burden of CKD attributable to elevated levels of PM2.5 exceeding the EPA standard (where the theoretical minimum risk exposure level [TMREL] was set at the EPA standard of 12 $\mu g/m^3$) in the contiguous United States was 44,793 incident cases per year (95\% uncertainty interval [95\% UI], 42,716 to 46,869). The national burden of ESRD attributable to PM2.5 levels in excess of EPA standards was 2438 incident cases per year (95\% UI, 1963 to 2902). 
         \end{itemize}
     }
     \item \href{https://rdrr.io/cran/powerMediation/man/sizePoisson.html}{Sample size} calculation for simple Poisson regression. Assume the predictor is normally distributed. {
        
-        Take PM2.5 as an example: the mean concentration is $15\;\mu g/m^3$; the standard deviation is $7\;\mu g/m^3$; the IQR is $9\;\mu g/m^3$; the expected rate ratio is 1.035; Then, according to ``\Verb+sizePossion+'', the minimum sample size is 8741 counts at 5\% significance level and the power of 0.8. If the average daily counts for ARF is 10 $person/day$, there should be 874 days' data ($\sim 2.4\;years$). 
+        Take PM2.5 as an example: the mean concentration is $15\;\mu g/m^3$; the standard deviation is $7\;\mu g/m^3$; the IQR is $9\;\mu g/m^3$; the expected rate ratio is 1.035; Then, according to ``\Verb+sizePossion+'', the minimum sample size is 8741 counts at 5\% significance level (one-sided, $RR \geq 1.035$) and the power of 0.8. If the average daily counts for ARF is 10 $person/day$, there should be 874 days' data ($\sim 2.4\;years$). 
          \begin{verbatim}
             library(powerMediation)
             sizePoisson(beta0 = 0, beta1 = log(1.035)/9, mu.x1 = 15, 
@@ -198,6 +227,20 @@
             \end{equation*}
         }
     }
+    \item \textbf{CMAQ PM emitted species} {
+    
+    \url{https://www.airqualitymodeling.org/index.php/CMAQv5.0_PM_emitted_species_list}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/cmaq_pm.png}
+    \end{figure}
+    }
+   \item Summary statistics of the initial analysis {
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{img/table.pdf}
+        \end{figure}
+   }
 \end{itemize}
 
 \subsection{Statistical Knowledge}
