@@ -36,25 +36,16 @@
     \end{equation*}
     A convolutional layer is some form of aggregation of neighboring information for a variable. Different convolutional layers capture different levels of aggregation. Aggregation of nearby information makes it possible to capture autocorrelation (such as edge detection by Laplacian operator). 
     }
-    \item \textbf{Autocorrelation} {
-    
-    Autocorrelation is calculated by the correlation between a signal and the lag $k$ of the signal. The autocorrelation function can be used for the following two purposes:
-    \begin{enumerate}
-        \item To detect non-randomness in data. Was this sample data set generated from a random process?
-        \item To identify an appropriate time series model if the data are not random. Would a non-linear or time-series model be a more appropriate model for these data than a simple constant plus error model?
-    \end{enumerate}
-    }
-    \item \textbf{Parametric and non-parametric} {
-        \begin{itemize}
-            \item A parametric statistical test is one that makes assumptions about the parameters (defining properties) of the population distribution(s) from which one's data are drawn
-            \item A non-parametric test is one that makes no such assumptions. 
-        \end{itemize}
-    }
+    \item \textbf{Autocorrelation}: Autocorrelation is calculated by the correlation between a signal and the lag $k$ of the signal. The autocorrelation function can be used for the following two purposes: 1) To detect non-randomness in data. Was this sample data set generated from a random process? 2) To identify an appropriate time series model if the data are not random. Would a non-linear or time-series model be a more appropriate model for these data than a simple constant plus error model?
+    \item \textbf{Parametric and non-parametric}: A parametric statistical test is one that makes assumptions about the parameters (defining properties) of the population distribution(s) from which one's data are drawn. A non-parametric test is one that makes no such assumptions. 
     \item \textbf{Meteorological parameters} {
         \begin{itemize}
             \item \textbf{Potential evaporation}: PE is defined as the amount of evaporation that would occur if a sufficient water source were available. Climates where PE is always greater than precipitation are termed \textit{arid climates}.
             \item \textbf{Convective available potential energy}: CAPE is the amount of energy a parcel of air would have if lifted a certain distance vertically through the atmosphere. CAPE is effectively the positive buoyancy of an air parcel and is an indicator of atmospheric instability
             \item \textbf{Downward Shortwave Radiation}: DSR is an estimate of the total amount of shortwave radiation (both direct and diffuse) that reaches the Earth’s surface.
+            \item \textbf{Cloud drop effective radius}: A weighted mean of the size distribution of cloud droplets.
+            \item \textbf{Cloud optical depth}: The vertical optical thickness between the top and bottom of a cloud.
+            \item \textbf{Emissivity}: The ratio of the energy radiated from a material's surface to that radiated from a blackbody.
         \end{itemize}
     }
 \end{itemize}
@@ -75,7 +66,7 @@
     
     There are many other interpolation methods can be tested (such as the variational approach, that it, splines). It is necessary to check the performance of the methods, such as the preservation of geometrical properties, and then determine the final method.
     }
-    \item \textbf{How to validate the qualify of the low-cost sensor calibration?} -- Cross-validation.
+    \item \textbf{How to validate the quality of the low-cost sensor calibration?} -- Cross-validation.
     \item \textbf{How to define the ``collocation'' of the AQS stations and the sensors?} {
     
     We will experiment several distances from near to far to fit the model and then use the results of cross-validation to determine which distance is the maximum threshold of the ``collocation''.
@@ -173,6 +164,12 @@
 
 \subsection{Key Points}
 \begin{itemize}
+    \item \textbf{Nemmar et al., 2009}{
+        \begin{itemize}
+            \item A single ip injection of cisplatin (CP, 6 mg/kg) in rats. Six days later, the rats were intratracheally instilled with either DEP (0.5 or 1 mg/kg) or saline (control) and renal, systemic, and pulmonary variables were studied 24 h thereafter. 
+            \item Our data confirm that CP decreases renal GSH concentration and superoxide dismutase (SOD) activity, leaving the renal tissues vulnerable to damage by oxygen free radicals that are responsible for the induction of tubular epithelial cell death. 
+        \end{itemize}
+    }
     \item \textbf{How to know if the low-cost sensor measurements contribute to the estimated PM2.5 results?}{
         \begin{itemize}
             \item We will use EPA PM2.5 and EPA/satellite PM2.5 to estimate the health effects, and then compare them with the effects estimated from improved PM2.5 exposure.
